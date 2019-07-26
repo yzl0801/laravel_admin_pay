@@ -9,6 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
 
 class WebsiteconfigController extends Controller
 {
@@ -29,7 +30,7 @@ class WebsiteconfigController extends Controller
         return $content
             ->header('基本设置')
             ->description(' ')
-            ->body($this->form()->edit(1));
+            ->body($this->form()->setAction('websiteconfig/1')->edit(1));
     }
 
     /**
@@ -129,22 +130,22 @@ class WebsiteconfigController extends Controller
         $show->qq('网站客服QQ');
         $show->directory('网站后台目录');
         $show->icp('网站备案号');
-        $show->tongji('Tongji');
-        $show->login('Login');
-        $show->payingservice('Payingservice');
-        $show->authorized('Authorized');
-        $show->invitecode('Invitecode');
-        $show->company('Company');
-        $show->serverkey('Serverkey');
-        $show->withdraw('Withdraw');
-        $show->login_warning_num('Login warning num');
-        $show->login_ip('Login ip');
-        $show->is_repeat_order('Is repeat order');
-        $show->google_auth('Google auth');
-        $show->df_api('Df api');
-        $show->register_need_activate('Register need activate');
-        $show->random_mchno('Random mchno');
-        $show->admin_alone_login('Admin alone login');
+        $show->tongji('网站统计代码');
+        $show->login('网站登录地址');
+        $show->payingservice('商户代付');
+        $show->authorized('商户认证');
+        $show->invitecode('邀请码注册');
+        $show->company('公司名称');
+        $show->serverkey('授权KEY');
+        $show->withdraw('提现通知');
+        $show->login_warning_num('商户前台登录错误次数');
+        $show->login_ip('IP登录白名单');
+        $show->is_repeat_order('允许重复订单');
+        $show->google_auth('谷歌令牌登录验证');
+        $show->df_api('代付API');
+        $show->register_need_activate('用户注册是否需要激活');
+        $show->random_mchno('使用随机商户号');
+        $show->admin_alone_login('管理员只允许同时一处登录');
 
         return $show;
     }
@@ -165,23 +166,55 @@ class WebsiteconfigController extends Controller
         $form->text('qq', '网站客服QQ');
         $form->text('directory', '网站后台目录');
         $form->text('icp', '网站备案号');
-        $form->text('tongji', 'Tongji');
-        $form->text('login', 'Login');
-        $form->switch('payingservice', 'Payingservice');
-        $form->switch('authorized', 'Authorized');
-        $form->switch('invitecode', 'Invitecode');
-        $form->text('company', 'Company');
-        $form->text('serverkey', 'Serverkey');
-        $form->switch('withdraw', 'Withdraw');
-        $form->switch('login_warning_num', 'Login warning num')->default(3);
-        $form->text('login_ip', 'Login ip')->default(' ');
-        $form->switch('is_repeat_order', 'Is repeat order')->default(1);
-        $form->switch('google_auth', 'Google auth');
-        $form->switch('df_api', 'Df api');
-        $form->switch('register_need_activate', 'Register need activate');
-        $form->switch('random_mchno', 'Random mchno');
-        $form->switch('admin_alone_login', 'Admin alone login');
+        $form->text('tongji', '网站统计代码');
+        $form->text('login', '网站登录地址');
+        $form->switch('payingservice', '商户代付');
+        $form->switch('authorized', '商户认证');
+        $form->switch('invitecode', '邀请码注册');
+        $form->text('company', '公司名称');
+        $form->text('serverkey', '授权KEY');
+        $form->switch('withdraw', '提现通知');
+        $form->switch('login_warning_num', '商户前台登录错误次数')->default(3);
+        $form->text('login_ip', 'IP登录白名单')->default(' ');
+        $form->switch('is_repeat_order', '允许重复订单')->default(1);
+        $form->switch('google_auth', '谷歌令牌登录验证');
+        $form->switch('df_api', '代付API');
+        $form->switch('register_need_activate', '用户注册是否需要激活');
+        $form->switch('random_mchno', '使用随机商户号');
+        $form->switch('admin_alone_login', '管理员只允许同时一处登录');
+        // 自定义工具
+        $form->tools(function (Form\Tools $tools) {
+            // 去掉`列表`按钮
+            $tools->disableList();
+            // 去掉`删除`按钮
+            $tools->disableDelete();
+            // 去掉`查看`按钮
+            $tools->disableView();
+            // 添加一个按钮, 参数可以是字符串, 或者实现了Renderable或Htmlable接口的对象实例
+            //$tools->add('<a class="btn btn-sm btn-danger"><i class="fa fa-trash"></i>&nbsp;&nbsp;delete</a>');
+        });
+
+        // 表单脚部
+        $form->footer(function ($footer) {
+            // 去掉`重置`按钮
+            $footer->disableReset();
+            // 去掉`提交`按钮
+            //$footer->disableSubmit();
+            // 去掉`查看`checkbox
+            $footer->disableViewCheck();
+            // 去掉`继续编辑`checkbox
+            $footer->disableEditingCheck();
+            // 去掉`继续创建`checkbox
+            $footer->disableCreatingCheck();
+        });
+
+        //保存后回调
+        $form->saved(function (Form $form) {
+            //...
+            return redirect('/admin/websiteconfig');
+        });
 
         return $form;
     }
+
 }

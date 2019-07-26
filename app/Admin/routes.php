@@ -14,4 +14,6 @@ Route::group([
     $router->resource('users', UserController::class);
 
     $router->resource('websiteconfig', WebsiteconfigController::class);
+    $router->resource('email', EmailController::class);
+    $router->resource('sms', SmsController::class);
 });
