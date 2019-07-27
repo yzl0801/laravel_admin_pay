@@ -5,14 +5,14 @@ namespace App\Admin\Forms;
 use Encore\Admin\Widgets\Form;
 use Illuminate\Http\Request;
 
-class Plan extends Form
+class ClearData extends Form
 {
     /**
      * The form title.
      *
      * @var string
      */
-    public $title = '计划任务';
+    public $title = '数据清理';
 
     /**
      * Handle the form request.
@@ -35,11 +35,16 @@ class Plan extends Form
      */
     public function form()
     {
-        $this->text('num', '补发次数')->rules('required');
-        $this->text('allowstart', '开始时间')->rules('required');
-        $this->text('allowend', '结束时间')->rules('required');
-        // $this->email('email')->rules('email');
-        //$this->datetime('created_at');
+        $this->checkbox('type', '数据类型')->options([
+            1 => '入金记录',
+            2 => '代付记录',
+            3 => '登录记录',
+            4 => '冻结记录',
+            5 => '资金记录',
+        ])->stacked()->canCheckAll();
+        //$this->text('range', '数据时间范围');
+        $this->dateRange('start_time', 'end_time', '数据时间范围');
+
     }
 
     /**
@@ -50,10 +55,9 @@ class Plan extends Form
     public function data()
     {
         return [
-            'num'       => '',
-            'allowstart'      => '',
-            'allowend' => '',
-            'created_at' => now(),
+            'type'       => '',
+            'start_time'      => '',
+            'end_time'      => '',
         ];
     }
 }

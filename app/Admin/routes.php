@@ -16,4 +16,9 @@ Route::group([
     $router->resource('websiteconfig', WebsiteconfigController::class);
     $router->resource('email', EmailController::class);
     $router->resource('sms', SmsController::class);
+
+    $router->get('plan', 'SystemController@plan', SystemController::class);
+    $router->get('password', 'SystemController@revisePassword', SystemController::class);
+    $router->get('mobile', 'SystemController@mobileSetting', SystemController::class);
+    $router->get('clear-data', 'SystemController@clearData', SystemController::class);
 });

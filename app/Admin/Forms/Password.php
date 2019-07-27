@@ -5,14 +5,14 @@ namespace App\Admin\Forms;
 use Encore\Admin\Widgets\Form;
 use Illuminate\Http\Request;
 
-class Plan extends Form
+class Password extends Form
 {
     /**
      * The form title.
      *
      * @var string
      */
-    public $title = '计划任务';
+    public $title = '修改密码';
 
     /**
      * Handle the form request.
@@ -35,11 +35,9 @@ class Plan extends Form
      */
     public function form()
     {
-        $this->text('num', '补发次数')->rules('required');
-        $this->text('allowstart', '开始时间')->rules('required');
-        $this->text('allowend', '结束时间')->rules('required');
-        // $this->email('email')->rules('email');
-        //$this->datetime('created_at');
+        $this->text('old_password', '原密码')->rules('required');
+        $this->text('new_password', '新密码')->rules('required');
+        $this->text('confirm_password', '重复新密码')->rules('required');
     }
 
     /**
@@ -50,10 +48,9 @@ class Plan extends Form
     public function data()
     {
         return [
-            'num'       => '',
-            'allowstart'      => '',
-            'allowend' => '',
-            'created_at' => now(),
+            'old_password'       => '',
+            'new_password'       => '',
+            'confirm_password'      => '',
         ];
     }
 }
