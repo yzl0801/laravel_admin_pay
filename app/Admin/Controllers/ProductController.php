@@ -6,6 +6,7 @@ use App\Models\Product;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
+use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
 class ProductController extends AdminController
@@ -15,7 +16,7 @@ class ProductController extends AdminController
      *
      * @var string
      */
-    protected $title = 'App\Models\Product';
+    protected $title = '支付产品';
 
     /**
      * Make a grid builder.
@@ -29,20 +30,13 @@ class ProductController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('name', __('message.product.name'));
         $grid->column('code', __('message.product.code'));
-        $grid->column('paytype', __('message.product.paytype'));
-        $grid->column('polling', __('message.product.polling'));
+        $grid->column('paytype', __('message.product.paytype'))->using(config('pay.type'));
+        $grid->column('polling', __('message.product.polling'))->using(config('pay.polling_type'));
         $grid->column('status', __('message.product.status'))->switch();
         $grid->column('isdisplay', __('message.product.isdisplay'))->switch();
 
         $grid->disableFilter();
-        $grid->disableExport();
-        $grid->disableColumnSelector(); // 禁用行选择器
-        $grid->disableRowSelector(); // 禁用行选择checkbox
         $grid->disablePagination();
-        $grid->actions(function ($actions) {
-            // 去掉查看
-            $actions->disableView();
-        });
 
         return $grid;
     }
@@ -79,8 +73,8 @@ class ProductController extends AdminController
 
         $form->text('name', __('message.product.name'));
         $form->text('code', __('message.product.code'));
-        $form->switch('polling', __('message.product.polling'));
-        $form->switch('paytype', __('message.product.paytype'));
+        $form->radio('polling', __('message.product.polling'))->options(config('pay.polling_type'))->default(0);
+        $form->select('paytype', __('message.product.paytype'))->options(config('pay.type'))->setWidth(3);
         $form->switch('status', __('message.product.status'));
         $form->switch('isdisplay', __('message.product.isdisplay'));
         $form->number('channel', __('message.product.channel'));
