@@ -10,6 +10,7 @@ namespace App\Admin\Controllers;
 
 
 use App\Admin\Forms\ClearData;
+use App\Admin\Forms\ComplaintRule;
 use App\Admin\Forms\MobileSetting;
 use App\Admin\Forms\Password;
 use App\Admin\Forms\Plan;
@@ -39,5 +40,11 @@ class SystemController extends Controller
     public function clearData(Content $content)
     {
         return $content->body(new ClearData());
+    }
+
+
+    public function complaint(Content $content)
+    {
+        return $content->body(new ComplaintRule());
     }
 }

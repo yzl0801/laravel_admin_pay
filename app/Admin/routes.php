@@ -11,15 +11,25 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('admin.home');
-    $router->resource('users', UserController::class);
-    $router->resource('products', ProductController::class);
 
+    // 系统设置
     $router->resource('websiteconfig', WebsiteconfigController::class);
     $router->resource('email', EmailController::class);
     $router->resource('sms', SmsController::class);
-
     $router->get('plan', 'SystemController@plan', SystemController::class);
     $router->get('password', 'SystemController@revisePassword', SystemController::class);
     $router->get('mobile', 'SystemController@mobileSetting', SystemController::class);
     $router->get('clear-data', 'SystemController@clearData', SystemController::class);
+
+    $router->resource('users', UserController::class);
+
+    // 订单管理
+    $router->resource('orders', OrderController::class);
+    $router->get('complaint-rule', 'SystemController@complaint', SystemController::class);
+
+    // 通道管理
+    $router->resource('products', ProductController::class);
+    $router->resource('channels', ChannelController::class);
+    $router->resource('channel-accounts', ChannelAccountController::class);
+
 });

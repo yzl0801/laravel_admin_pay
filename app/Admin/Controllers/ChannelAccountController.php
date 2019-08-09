@@ -45,8 +45,6 @@ class ChannelAccountController extends AdminController
         $grid->column('weight', __('message.channel_account.Weight'));
         $grid->column('custom_rate', __('message.channel_account.Custom rate'))->using(config('pay.rate_type'));
 
-        $grid->
-
         return $grid;
     }
 

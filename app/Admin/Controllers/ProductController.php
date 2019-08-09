@@ -27,6 +27,7 @@ class ProductController extends AdminController
     {
         $grid = new Grid(new Product);
 
+        $grid->model()->orderBy('id', 'desc');
         $grid->column('id', __('Id'));
         $grid->column('name', __('message.product.name'));
         $grid->column('code', __('message.product.code'));
@@ -77,8 +78,6 @@ class ProductController extends AdminController
         $form->select('paytype', __('message.product.paytype'))->options(config('pay.type'))->setWidth(3);
         $form->switch('status', __('message.product.status'));
         $form->switch('isdisplay', __('message.product.isdisplay'));
-        $form->number('channel', __('message.product.channel'));
-        $form->textarea('weight', __('message.product.weight'));
 
         return $form;
     }
