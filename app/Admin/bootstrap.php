@@ -19,6 +19,8 @@
  */
 
 use Encore\Admin\Grid;
+use Encore\Admin\Form;
+use Encore\Admin\Form\Tools;
 
 Encore\Admin\Form::forget(['map', 'editor']);
 
@@ -33,4 +35,14 @@ Grid::init(function (Grid $grid) {
     $grid->actions(function (Grid\Displayers\Actions $actions) {
         $actions->disableView();
     });
+});
+
+Form::init(function(Form $form) {
+
+    $form->disableEditingCheck();
+
+    $form->disableCreatingCheck();
+
+    $form->disableViewCheck();
+
 });

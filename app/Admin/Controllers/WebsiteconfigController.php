@@ -159,6 +159,7 @@ class WebsiteconfigController extends Controller
     {
         $form = new Form(new Websiteconfig);
 
+        $form->html('你的html内容');
         $form->text('websitename', '网站名称');
         $form->text('domain', '网站地址');
         $form->email('email', '联系邮箱');

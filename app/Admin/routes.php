@@ -25,11 +25,12 @@ Route::group([
 
     // 订单管理
     $router->resource('orders', OrderController::class);
+    $router->resource('moneychanges', FundController::class);
     $router->get('complaint-rule', 'SystemController@complaint', SystemController::class);
 
     // 通道管理
     $router->resource('products', ProductController::class);
     $router->resource('channels', ChannelController::class);
     $router->resource('channel-accounts', ChannelAccountController::class);
-
+    $router->resource('pay-for-anothers', DfProductController::class);
 });
