@@ -28,6 +28,10 @@ Route::group([
     $router->resource('moneychanges', FundController::class);
     $router->get('complaint-rule', 'SystemController@complaint', SystemController::class);
 
+    // 提款管理
+    $router->get('withdraw-setting', 'SystemController@withdraw', SystemController::class);
+    $router->resource('wttklists', WithdrawController::class);
+
     // 通道管理
     $router->resource('products', ProductController::class);
     $router->resource('channels', ChannelController::class);
