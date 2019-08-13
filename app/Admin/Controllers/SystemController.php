@@ -62,4 +62,10 @@ class SystemController extends Controller
             ->title('提款管理')
             ->body(Tab::forms($forms));
     }
+
+
+    public function risk(Content $content)
+    {
+        return $content->body(new Forms\RiskSetting());
+    }
 }

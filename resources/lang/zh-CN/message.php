@@ -126,4 +126,15 @@ return [
     'wttklist.Sheng' => '所属省',
     'wttklist.Shi' => '所属市',
 
+    'user_riskcontrol_config.min_money' => '单笔最小金额',
+    'user_riskcontrol_config.max_money' => '单笔最大金额',
+    'user_riskcontrol_config.all_money' => '当日总金额',
+    'user_riskcontrol_config.start_time' => '开始时间',
+    'user_riskcontrol_config.end_time' => '结束时间',
+    'user_riskcontrol_config.unit_interval' => '单位时间限制',
+    'user_riskcontrol_config.time_unit' => '限制时间单位',
+    'user_riskcontrol_config.unit_number' => '单位时间次数',
+    'user_riskcontrol_config.unit_all_money' => '单位时间金额',
+    'user_riskcontrol_config.status' => '风控状态',
+
 ];

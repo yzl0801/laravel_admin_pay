@@ -11,6 +11,7 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('admin.home');
+    $router->resource('users', UserController::class);
 
     // 系统设置
     $router->resource('websiteconfig', WebsiteconfigController::class);
@@ -21,7 +22,10 @@ Route::group([
     $router->get('mobile', 'SystemController@mobileSetting', SystemController::class);
     $router->get('clear-data', 'SystemController@clearData', SystemController::class);
 
-    $router->resource('users', UserController::class);
+    // 用户管理
+    $router->get('risk-setting', 'SystemController@risk', SystemController::class);
+
+    // 代理管理
 
     // 订单管理
     $router->resource('orders', OrderController::class);
@@ -37,4 +41,6 @@ Route::group([
     $router->resource('channels', ChannelController::class);
     $router->resource('channel-accounts', ChannelAccountController::class);
     $router->resource('pay-for-anothers', DfProductController::class);
+
+    // 财务分析
 });
